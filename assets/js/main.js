@@ -1,5 +1,5 @@
 $(document).ready(async function(){
-        const url='https://jsonplaceholder.typicode.com/photos?_start=0&_limit=4';
+        const url='https://jsonplaceholder.typicode.com/photos?_start=0&_limit=12';
         
         const data=await fetch(url).then(function(responce){return responce.json();})
            
@@ -59,7 +59,8 @@ function addProduct(){
             }
     
             $(this).parent().find('.counter').html(basket[productId]);
-            
+            window.location.reload()
+
     
         });
     }
@@ -67,6 +68,17 @@ function addProduct(){
 function showBasketProducts(data){
         baskets=getBasket();
         const basketitems=Object.keys(baskets)
+
+        // const basketProducts=data.filter(function(product){
+        //     if(baskets.includes(product.id)){
+        //         $('#basket-items').append(`
+        //                                  <div class="basket-item">
+        //                                        <img src="${element.thumbnailUrl}" alt="" class="basket-img">
+        //                                         <div class="basket-title">${element.title.substring(0,6)}</div>
+        //                                         <div class="btn btn-warning remove" data-id="${element.id}" >delete</div>
+        //                                 </div>`)
+        //     }
+        // })
         data.forEach((element)=>{
                 for (let index = 0; index <basketitems.length; index++) {
                         if( element.id== basketitems[index])
@@ -110,6 +122,8 @@ function removeProduct(){
     
                 saveBasket(basket);
             }
+            window.location.reload()
+
         });
     }
 
@@ -126,8 +140,8 @@ const basketitems=document.querySelector('.basket-items')
 
 
 
-// console.log(basketbtn,basketitems)
+console.log(basketbtn,basketitems)
 
-// basketbtn.addEventListener("click",function(){
-//        basketitems.classList.toggle('active')
-// })
+basketbtn.addEventListener("click",function(){
+       basketitems.classList.toggle('active')
+})
